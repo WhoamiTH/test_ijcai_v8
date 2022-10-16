@@ -1,0 +1,29 @@
+# 选择资源
+
+
+#PBS -N test_v3
+#PBS -l ngpus=1
+#PBS -l mem=46gb
+#PBS -l ncpus=8
+#PBS -l walltime=12:00:00
+#PBS -M han.tai@student.unsw.edu.au
+#PBS -m ae
+#PBS -j oe
+
+#PBS -o /srv/scratch/z5102138/test_ijcai_v3/
+source ~/anaconda3/etc/profile.d/conda.sh
+conda activate py36
+
+
+cd /srv/scratch/z5102138/test_ijcai_v3
+which python
+
+
+
+mkdir -p ./test_pageblocks1/model_MLP_im_15000/record_1/
+mkdir -p ./test_pageblocks1/result_MLP_im_15000_normal_num_10_half/record_1/
+python3 ./classifier_MLP/train_MLP.py dataset_name=pageblocks1 dataset_index=5 record_index=1 device_id=0 train_method=MLP_im_15000
+python3 ./classifier_MLP/test.py dataset_name=pageblocks1 dataset_index=5 record_index=1 train_method=MLP_im_15000 test_method=normal_num_10_half device_id=0
+
+
+
